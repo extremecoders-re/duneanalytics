@@ -93,8 +93,8 @@ class DuneAnalytics:
         """
         query_data = {"operationName": "GetResult", "variables": {"query_id": query_id},
                       "query": "query GetResult($query_id: Int!, $parameters: [Parameter!]) "
-                               "{\n  get_result(query_id: $query_id, parameters: $parameters) "
-                               "{\n    job_id\n    result_id\n    __typename\n  }\n}\n"
+                               "{\n  get_result_v2(query_id: $query_id, parameters: $parameters) "
+                               "{\n    job_id\n    result_id\n   error_id\n      __typename\n  }\n}\n"
                       }
 
         self.session.headers.update({'authorization': f'Bearer {self.token}'})
@@ -105,7 +105,7 @@ class DuneAnalytics:
             # print(data)
             if 'errors' in data:
                 return None
-            result_id = data.get('data').get('get_result').get('result_id')
+            result_id = data.get('data').get('get_result_v2').get('result_id')
             return result_id
         else:
             print(response.text)
