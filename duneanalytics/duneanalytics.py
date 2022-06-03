@@ -84,14 +84,14 @@ class DuneAnalytics:
         else:
             print(response.text)
 
-    def query_result_id(self, query_id):
+    def query_result_id(self, query_id, parameters=[]):
         """
         Fetch the query result id for a query
 
         :param query_id: provide the query_id
         :return:
         """
-        query_data = {"operationName": "GetResult", "variables": {"query_id": query_id},
+        query_data = {"operationName": "GetResult", "variables": {"query_id": query_id, "parameters": parameters},
                       "query": "query GetResult($query_id: Int!, $parameters: [Parameter!]) "
                                "{\n  get_result_v2(query_id: $query_id, parameters: $parameters) "
                                "{\n    job_id\n    result_id\n   error_id\n      __typename\n  }\n}\n"
